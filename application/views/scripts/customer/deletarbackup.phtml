@@ -1,0 +1,61 @@
+<meta charset="utf-8">
+
+
+<?php if (!isset($this->resp1)) { ?>
+    <a href="#destino" id="destino" rel="modal:open" >
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#destino').click();
+
+            });
+
+        </script>  
+        <script type="text/javascript">
+
+            //document.getElementById('link').click()
+        </script>  
+        <div class="modal" id="destino"  >
+
+
+
+
+            <table width="100%" heght="100%" align='center' cellspacing='5' cellpadding='5'>
+                <tr>
+                    <td   align='center' class="alert">
+
+
+                        <font size='3'> Você confirma a exclusão do aluno(a)&nbsp;&nbsp;<?php echo $this->name; ?></font>&nbsp;<font size="4"><b>?</b></font>
+                        <p>
+                        <font size='2'>Após a exclusão, não será mais possível acessar seus dados!</font>
+
+                        </p>
+                    </td>
+                <tr>
+                    <td valign="bottom" align='center' >
+                        <p>
+                        <input type="button" value="Sim" class='btn btn-danger' onclick="javascript:location = '/default/customer/deletar/id/<?php echo $this->id ?>/name/<?php echo $this->name ?>/excluir/excluir'"/> &nbsp; &nbsp;&nbsp;
+                        <input type="button" value="Não" class='btn btn-success'  onclick="javascript:location = '/default/customer/buscar'"/>
+                        </p>
+                    </td>
+
+                </tr>
+
+            </table>
+
+
+        </div>
+
+    <?php } ?>
+
+    <?php if (isset($this->resp1)) { ?>
+        <?php echo $this->resp1 ?>
+        <div id="dialog" title="<?php echo $this->titulo ?>" class="<?php echo $this->alerta ?>"> 
+            <?php echo $this->resp ?>  
+            <p>
+            <div   align="center">
+            <input type="button"  value="OK" class="btn-small"  onclick="javascript:location = '/default/customer/buscar'"/>
+            </div>
+
+
+        </div> 
+    <?php } ?>

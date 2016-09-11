@@ -1,0 +1,150 @@
+<meta charset="utf-8">
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        mudarCorCampo(document.payment.customer, '#FFFBBF');
+        mudarCorCampo(document.payment.name, '#FFFBBF');
+        document.getElementById('value').readOnly = true;
+        document.getElementById('description').readOnly = true;
+        document.payment.customer.focus();
+        $("#Pesquisar").click(function (e) {
+
+
+
+            $('#value').val('Carregando...');
+            $('#date').val('Carregando...');
+            $('#description').val('Carregando...');
+            $.getJSON(
+                    '/php/function1.php',
+                    {customer: $('#customer').val(),name: $('#name').val()},
+                    function (json)
+                    {
+                        $('form').loadData(json);
+                        if ($('#name').val() != "Aluno não encontrado!") {
+                            document.getElementById('customer').readOnly = true;
+                            document.getElementById('name').readOnly = true;
+                            document.getElementById('value').readOnly = false;
+                            document.getElementById('description').readOnly = false;
+                            mudarCorCampo(document.payment.customer, '#deedf9');
+                            mudarCorCampo(document.payment.name, '#deedf9');
+                            mudarCorCampo(document.payment.date, '#deedf9');
+                            mudarCorCampo(document.payment.description, '#deedf9');
+                            mudarCorCampo(document.payment.value, '#deedf9');
+                        }
+
+                    }
+            );
+        });
+        $('#customer').on('focus', function (e) {
+            document.getElementById('customer').readOnly = false;
+            document.getElementById('name').readOnly = true;
+            document.getElementById('value').readOnly = false;
+            document.getElementById('description').readOnly = false;
+            mudarCorCampo(document.payment.customer, '#FFFBBF');
+            $('#customer').val('');
+            mudarCorCampo(document.payment.name, '#deedf9');
+            $('#name').val('');
+            mudarCorCampo(document.payment.date, '#deedf9');
+            $('#date').val('');
+            mudarCorCampo(document.payment.description, '#ffffff');
+            $('#description').val('');
+            mudarCorCampo(document.payment.value, '#ffffff');
+            $('#value').val('');
+        });
+
+        $('#name').on('focus', function (e) {
+            document.getElementById('customer').readOnly = true;
+            document.getElementById('name').readOnly = false;
+            document.getElementById('value').readOnly = true;
+            document.getElementById('description').readOnly = true;
+            mudarCorCampo(document.payment.customer, '#deedf9');
+            $('#customer').val('');
+            mudarCorCampo(document.payment.name, '#FFFBBF');
+            $('#name').val('');
+
+            $('#date').val('');
+            mudarCorCampo(document.payment.description, '#ffffff');
+            $('#description').val('');
+            mudarCorCampo(document.payment.value, '#ffffff');
+            $('#value').val('');
+        });
+        $("#Limpar").click(function (e) {
+            document.getElementById('customer').readOnly = false;
+            document.getElementById('name').readOnly = false;
+            document.getElementById('value').readOnly = true;
+            document.getElementById('description').readOnly = true;
+            mudarCorCampo(document.payment.customer, '#FFFBBF');
+            mudarCorCampo(document.payment.description, '#ffffff');
+            mudarCorCampo(document.payment.value, '#ffffff');
+
+        });
+
+        $("#value").click(function (e) {
+            mudarCorCampo(document.payment.value, '#FFFBBF');
+        });
+
+        $("#description").click(function (e) {
+            mudarCorCampo(document.payment.description, '#FFFBBF');
+        });
+
+
+
+
+
+
+    });
+
+
+</script>    
+
+
+
+<div class="container">
+    <table><td><legend> <font color="gray">Buscar e Editar Pagamentos</font></legend></td></table>
+
+    <a href="<?php
+    echo $this->url(array('controller' => 'Customer',
+        'action' => 'buscar'));
+    ?>">Voltar</a>
+    /
+    <a href="<?php
+    echo $this->url(array('controller' => 'payment',
+        'action' => 'listar'));
+    ?>">Listar Pagamentos</a>
+
+    <table class="formbusca"> 
+
+        <tr>
+            <td class="bs-docs">
+                <div align="center" class="<?php echo $this->alerta ?>">
+                    <?php echo $this->titulo ?>
+
+                </div>
+
+                <div>   
+                    <?php echo $this->form ?>
+
+                </div>
+
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+
+<?php if (isset($this->resp1)) { ?>
+    <?php echo $this->resp1 ?>
+    <div id="dialog" title="<?php echo $this->titulo ?>" class="<?php echo $this->alerta ?>"> 
+        <?php echo $this->resp ?> 
+
+
+    </div>
+
+    <script type="text/javascript">
+
+        location = "/default/customer/payment";
+    </script>
+    <?php
+}

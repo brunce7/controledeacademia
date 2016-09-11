@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Apache2.2/htdocs/controledeacademia/application/views/scripts/customer/listar.phtml</file>
+            <file>file:/C:/Apache2.2/htdocs/controledeacademia/application/views/scripts/customer/edit.phtml</file>
+            <file>file:/C:/Apache2.2/htdocs/controledeacademia/application/models/DbTable/Payment.php</file>
+            <file>file:/C:/Apache2.2/htdocs/controledeacademia/application/configs/application.ini</file>
+            <file>file:/C:/Apache2.2/htdocs/controledeacademia/application/controllers/CustomerController.php</file>
+            <file>file:/C:/Apache2.2/htdocs/controledeacademia/application/views/scripts/customer/payment.phtml</file>
+            <file>file:/C:/Apache2.2/htdocs/controledeacademia/application/controllers/PaymentController.php</file>
+            <file>file:/C:/Apache2.2/htdocs/controledeacademia/application/models/DbTable/Customer.php</file>
+            <file>file:/C:/Apache2.2/htdocs/controledeacademia/application/views/scripts/customer/buscar.phtml</file>
+            <file>file:/C:/Apache2.2/htdocs/controledeacademia/application/views/scripts/payment/listar.phtml</file>
+        </group>
+    </open-files>
+</project-private>

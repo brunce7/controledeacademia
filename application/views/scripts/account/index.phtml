@@ -1,0 +1,68 @@
+<style>
+    #login{
+
+       
+        border-radius: 05px;
+        padding:3px;
+    }
+
+</style>
+
+<?php if (isset($this->message)) { ?>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#login').modal('show');
+
+            setTimeout(function () {
+                
+                $('#login').modal('hide')
+            }, 2000);
+
+        });
+
+    </script>  
+
+
+
+    <div id="login" class="modal"> 
+        <table align='center' width="100%" height="100%" cellspacing='3' cellpadding='3'>
+
+
+           
+                <?php echo $this->message; ?>  
+
+        </table> 
+    </div> 
+<?php } ?>
+
+<?php if (Zend_Auth::getInstance()->hasIdentity()) { ?> 
+    <script>location="/customer/buscar";</script>
+    
+<?php } ?>
+<?php if (!Zend_Auth::getInstance()->hasIdentity()) { ?> 
+
+
+    <br>
+    <br>
+    <table align='center' height='150'>
+        <tr>
+            <td align='center' class="brand">
+
+                <?php echo "<font color='gray' size='6'><b> Bem Vindo!</b></font>"; ?>
+
+            </td>
+        </tr>
+        <tr>
+            <td align='center' class="brand">
+                <?php echo "Clique em Entrar para acessar o Sistema"; ?>
+            </td>
+
+        </tr>
+    </table>
+
+    <br>
+    <br>
+    <br>
+    <?php
+}

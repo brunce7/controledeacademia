@@ -1,0 +1,202 @@
+<?php echo $this->doctype() ?>
+
+<head>
+    <?php echo $this->headTitle('Controle de Academia') ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <?php echo $this->headMeta() ?>
+
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/jquery.js') ?>
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/jquery.modal.js') ?>
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/jquery.formjonson.js') ?>
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/bootstrap.js') ?>
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/jquery-ui.js') ?>
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/jquery-ui-1.10.2.custom.js') ?>
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/jquery.maskedinput.js') ?>
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/MascaraValidacao.js') ?>
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/converteMoeda.js') ?>
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/clock.js')?>
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/validator.js') ?>
+    <?php $this->headScript()->appendFile($this->baseURL() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9')) ?>
+
+
+    <?php echo $this->headScript() ?>
+     <?php $this->headLink()->appendStylesheet($this->baseURL() . '/css/normalize.css', 'screen') ?>
+    <?php $this->headLink()->appendStylesheet($this->baseURL() . '/css/jquery-ui.css', 'screen') ?>
+    <?php $this->headLink()->appendStylesheet($this->baseURL() . '/css/jquery.modal.css', 'screen') ?>
+    <?php $this->headLink()->appendStylesheet($this->baseURL() . '/css/bootstrap.css', 'screen') ?>
+    <?php $this->headLink()->appendStylesheet($this->baseURL() . '/css/font-awesome.css', 'screen') ?>
+    <?php $this->headLink()->appendStylesheet($this->baseURL() . '/css/font-awesome-ie7.min.css', 'screen', 'IE 7') ?>
+
+    <?php $this->headLink()->appendStylesheet($this->baseURL() . '/css/bootstrap-responsive.css', 'screen') ?>
+    <?php $this->headLink()->appendStylesheet($this->baseURL() . '/css/global.css', 'screen') ?>
+
+
+
+    <?php echo $this->headLink() ?>
+    
+</head>
+<body>
+
+  <!-- <script type="text/javascript">
+
+      //  jQuery(function ($) {
+
+
+         //   $("#birthday").mask("99/99/9999");
+
+       // });
+
+    </script>  
+ -->  
+
+    <!-- Modal -->
+    <div id="about" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+            <h3 id="myModalLabel">Sistema de Controle de Acadêmia</h3>
+        </div>
+
+        <div class="modal-body">
+            <p>Sistema desenvolvido por:</p>
+
+            <p><strong><a href="mailto:bruno.cezar@unisul.br">SOS Informática</a></strong></p>
+        </div>
+
+        <div  class="modal-footer">
+            <table width="100%">
+                <td align='left'>
+                   Copyright  &copy;  <?php echo date(" Y"); ?>
+                </td>
+
+                <td align="right">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
+                </td>
+            </table>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="brand">Controle de Academia</a>
+                        <div class="nav-collapse collapse">
+                              <ul class="nav">
+                                    <li><a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index'), null, true) ?>"><i class="icon-home"></i> Início</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil"></i> Cadastro <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="<?php echo $this->url(array('controller' => 'customer', 'action' => 'create'), null, true) ?>">Alunos</a></li>
+                                            <li><a href="<?php echo $this->url(array('controller' => 'employees', 'action' => 'create'), null, true) ?>">Funcionários</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-building"></i> Academia <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="<?php echo $this->url(array('controller' => 'customer', 'action' => 'payment'), null, true) ?>">Pagamentos</a></li>
+                                            <li><a href="<?php echo $this->url(array('controller' => 'customer', 'action' => 'listar'), null, true) ?>">Controle de Alunos</a></li>
+                                            <li><a href="<?php echo $this->url(array('controller' => 'employees', 'action' => 'listar'), null, true) ?>">Controle de Funcionários</a></li>
+                                            <li><a href="#">Controle de Acesso</a></li>
+                                        </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-money"></i> Caixa <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        
+                                         <li><a href="<?php echo $this->url(array('controller' => 'payment', 'action' => 'listar'), null, true) ?>">Históricos de Pagamento</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#" data-toggle="modal" data-target="#about"><i class="icon-info-sign"></i> Sobre</a></li>
+
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-calendar"></i> Data e Hora <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li> 
+                                            <p align='center'>  <?php include("horas.php"); ?></p>
+                                        </li>
+                                    </ul>
+                                </li>
+
+
+                            </ul>
+
+                            <?php
+                            if (Zend_Auth::getInstance()->hasIdentity()) {
+                                $identity = Zend_Auth::getInstance()->getIdentity();
+                                 
+                                ?>
+
+                                <ul class="nav pull-right">
+                                    <li class="dropdown">
+                                        
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i>                                        
+                                         <?php  include("datetime.php"); echo $saudacao;
+                                            echo $identity->login;
+                                            ?> <b class="caret"></b></a>
+                                        <form class="login-menu dropdown-menu well" action="<?= $this->url(array('controller' => 'account', 'action' => 'logout'), null, true) ?>" id="formlogout" name="formlogout">
+
+
+                                            <div class="control-group">
+                                                <div class="controls">
+                                                    <button type="submit" class="btn btn-danger"><i class="icon-off"></i>   Encerrar Sessão</button>
+                                                </div>
+                                            </div>
+                                            </fieldset>
+                                        </form>
+                                    </li>
+                                </ul>
+                           
+
+
+
+
+
+
+        <?php } else { ?>
+
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> Entrar <b class="caret"></b></a>
+                    <form class="login-menu dropdown-menu well" action="<?= $this->url(array('controller' => 'account', 'action' => 'login'), null, true) ?>" id="forlogin" name="formlogin">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label">Usuário</label>
+                                <div class="controls">
+                                    <input type="text" name="login" placeholder="Nome de usuário" required="required">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Senha</label>
+                                <div class="controls">
+                                    <input type="password" name="senha" placeholder="Senha" required="required">
+                                </div>
+                            </div>
+                            
+                            <div class="control-group">
+                                <div class="controls">
+                                    <button type="submit" id="entrar"  class="btn btn-primary btn-block" ><i class="icon-ok-circle"></i>Entrar</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </li>
+            </ul>
+        <?php } ?>
+    </div><!--/.nav-collapse -->
+</div><!--/.container -->
+</div><!--/.navbar-inner -->
+</div><!--/.navbar -->
+</div>
+
+
+

@@ -1,0 +1,107 @@
+<meta charset="utf-8">
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('table tr#destaque').click(function () {
+            window.location = $(this).data('url');
+            returnfalse;
+        });
+
+    });
+
+
+
+</script>
+
+
+<style rel="stylesheet" type="text/css">
+
+    .formbusca { float: left;  }
+    .busca { margin-left: 0; margin-top: 60px; }
+    table#listar tr#destaque{
+        font-size: 13px; color: darklategray;
+    }
+    table#listar tr#destaque:nth-child(2n) {
+        background:#deedf9;
+
+    }
+
+    .title_tabela {
+        background-color: white;
+
+    }
+
+
+
+</style>
+
+<div  class="container">
+
+
+    <table class="formbusca"> 
+
+        <tr>
+            <td>
+        <legend> <font color="gray">Lista de Alunos</font></legend>
+
+                <a href="<?php
+                echo $this->url(array('controller' => 'customer',
+                    'action' => 'buscar'));
+                ?>">Voltar</a>
+
+            </td>
+
+        </tr>
+        <tr>
+
+            <td>
+                <div align="center" class="<?php echo $this->alerta ?>">
+                    <?php echo $this->resp ?>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    </table>   
+
+
+
+
+    <div class="busca" >
+        <table id="listar" width="100%" height="100%" class="table-hover" cellpadding="3" cellspacing="3" border="0" align="center">
+
+
+
+            <?php if (count($this->listaAlunos)) { ?>
+
+
+                <tr class="title_tabela">
+                    
+                    <th align="center">MATRÍCULA</th>
+                    <th align="center">NOME</th>
+                    <th align="center">TELEFONE</th>
+                    <th align="center">CELULAR</th>
+                    <th align="center">MENSALIDADE</th>
+                    <th align="center">STATUS</th>
+
+
+                </tr>
+                <?php foreach ($this->listaAlunos as $alun) { ?>
+                    <tr id="destaque"  data-url="<?= $this->url(array("controller" => "customer", "action" => "edit", "id" => "{$alun['id']}", "name" => "{$alun['name']}"), null, true) ?>" style="cursor:pointer" title="Clique para editar o registro">
+
+                        
+                        <td align="center"><?php echo $alun["id"]; ?></td>
+                        <td align="center"><?php echo $alun["name"]; ?></td>
+                        <td align="center"><?php echo $alun["phone"]; ?></td>
+                        <td align="center"><?php echo $alun["cellphone"]; ?></td>
+                        <td align="center"><?php echo number_format($alun['monthly_payment'], 2, ',', '.'); ?></td>
+                        <td align="center"><?php echo $alun["status"]; ?></td>
+                    </tr> 
+
+                <?php } ?>
+            <?php } ?>
+        </table>
+    </div>
+</div>

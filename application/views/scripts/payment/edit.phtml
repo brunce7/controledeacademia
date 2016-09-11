@@ -1,0 +1,188 @@
+<meta charset="utf-8">
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        // document.getElementById('Atualizar').disabled=true; 
+
+        document.getElementById('description').readOnly = false;
+        document.getElementById('value').readOnly = true;
+        mudarCorCampo(document.search.customer, '#FFFBBF');
+        mudarCorCampo(document.search.description, '#FFFBBF');
+        mudarCorCampo(document.search.open, '#deedf9');
+        mudarCorCampo(document.search.id, '#FFFBBF');
+
+        // document.search.customer.focus();
+        $("#Pesquisar").click(function (e) {
+
+            $('#name').val('Carregando...');
+            $('#value').val('Carregando...');
+            $('#date').val('Carregando...');
+
+            $.getJSON(
+                    '/php/function2.php',
+                    {id: $('#id').val(), customer: $('#customer').val(), description: $('#description').val()},
+                    function (json)
+                    {
+                        $('form').loadData(json);
+                        if ($('#name').val() != "Aluno não encontrado!") {
+                            // document.getElementById("description").disable = true; 
+                            document.getElementById('description').readOnly = true;
+                            // document.getElementById('Atualizar').disabled = false;
+                            document.getElementById('Atualizar').style.display = 'block';
+                            mudarCorCampo(document.search.id, '#deedf9');
+                            mudarCorCampo(document.search.open, '#deedf9');
+                            mudarCorCampo(document.search.customer, '#deedf9');
+                            mudarCorCampo(document.search.name, '#deedf9');
+                            mudarCorCampo(document.search.date, '#deedf9');
+                            mudarCorCampo(document.search.description, '#deedf9');
+                            mudarCorCampo(document.search.value, '#deedf9');
+                        }
+
+                    }
+            );
+
+        });
+
+
+        
+
+
+
+
+
+        $('#customer').on('focus', function (e) {
+            document.getElementById('Atualizar').style.display = 'none';
+            mudarCorCampo(document.search.id, '#FFFBBF');
+            $('#id').val('');
+            mudarCorCampo(document.search.open, '#deedf9');
+
+            $('#open').val('');
+            mudarCorCampo(document.search.customer, '#FFFBBF');
+            $('#customer').val('');
+
+            $('#name').val('');
+
+            $('#date').val('');
+            mudarCorCampo(document.search.description, '#FFFBBF');
+
+
+
+            $('#value').val('');
+
+
+        });
+        $('#id').on('focus', function (e) {
+            document.getElementById('Atualizar').style.display = 'none';
+            mudarCorCampo(document.search.id, '#FFFBBF');
+
+            $('#id').val('');
+
+            mudarCorCampo(document.search.open, '#deedf9');
+
+            $('#open').val('');
+            mudarCorCampo(document.search.customer, '#FFFBBF');
+            $('#customer').val('');
+
+            $('#name').val('');
+
+            $('#date').val('');
+            mudarCorCampo(document.search.description, '#FFFBBF');
+            $('#description').val('');
+
+            $('#value').val('');
+
+
+        });
+        // $("#Limpar").click(function (e) {
+        $('#description').on('focus', function (e) {
+
+            document.getElementById('description').readOnly = false;
+            document.getElementById('Atualizar').style.display = 'none';
+            mudarCorCampo(document.search.id, '#FFFBBF');
+            $('#open').val('');
+            $('#id').val('');
+            mudarCorCampo(document.search.open, '#FFFBBF');
+
+
+            mudarCorCampo(document.search.customer, '#FFFBBF');
+            mudarCorCampo(document.search.open, '#deedf9');
+
+            $('#open').val('');
+
+            $('#name').val('');
+
+            $('#date').val('');
+            mudarCorCampo(document.search.description, '#FFFBBF');
+            $('#description').val('');
+
+            $('#value').val('');
+
+        });
+        $('#Limpar').on('click', function (e) {
+
+            document.getElementById('Atualizar').style.display = 'none';
+            mudarCorCampo(document.search.id, '#FFFBBF');
+            mudarCorCampo(document.search.open, '#deedf9');
+            mudarCorCampo(document.search.customer, '#FFFBBF');
+            mudarCorCampo(document.search.description, '#deedf9');
+            mudarCorCampo(document.search.value, '#deedf9');
+             $('#id').val('');
+             $('#open').val('');
+             $('#customer').val('');
+             $('#name').val('');
+             $('#date').val('');
+             $('#value').val('');
+             $('#description').val('');
+        });
+
+
+    });
+
+
+
+
+
+</script>    
+<div class="container">
+    <table><td><legend> <font color="gray">Buscar e Editar Pagamentos</font></legend></td></table>
+
+    <a href="<?php
+    echo $this->url(array('controller' => 'Customer',
+        'action' => 'payment'));
+    ?>">Voltar</a>
+    /
+    <a href="<?php
+    echo $this->url(array('controller' => 'payment',
+        'action' => 'listar'));
+    ?>">Listar Pagamentos</a>
+
+    <table class="formbusca"> 
+
+        <tr>
+            <td class="bs-docs">
+
+
+                <div>   
+                    <?php echo $this->form ?>
+
+                </div>
+
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+
+<?php if (isset($this->resp1)) { ?>
+    <?php echo $this->resp1 ?>
+    <div id="dialog" title="<?php echo $this->titulo ?>" class="<?php echo $this->alerta ?>"> 
+        <?php echo $this->resp ?> 
+
+
+    </div>
+
+
+    <?php
+}

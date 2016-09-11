@@ -1,0 +1,61 @@
+<?php echo $this->render('_header.phtml') ?>
+ <script type="text/javascript">
+    // Este evendo é acionado após o carregamento da página
+    $(document).ready(function () {
+        //  Após a leitura da pagina o evento fadeOut do loader é acionado, esta com delay para ser perceptivo em ambiente fora do servidor.
+        <?php if (count($this->listaAlunos)) { ?>
+            jQuery("#loader").delay(2000).fadeOut("slow");
+        <?php }else { ?> 
+            jQuery("#loader").delay(500).fadeOut("slow")
+        <?php } ?> 
+        
+    });
+</script>  
+
+<style>
+  <?php if (count($this->listaAlunos)) { ?>
+   div#loader{
+   position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: url('/img/cubo.gif') 50% 25% no-repeat white;
+    line-height: 100px;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    
+   
+    }
+     <?php }else { ?> 
+    div#loader{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: url('/img/load2.gif') 50% 25% no-repeat white;
+    line-height: 100px;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    
+   
+    }
+    
+    
+     <?php } ?> 
+
+</style>
+<div  class="container">
+   <div  id="loader"></div>  
+    <div class="content">
+       
+        <?php echo $this->layout()->content; ?>
+
+    </div>
+</div>
+
+
+<?php echo $this->render('_footer.phtml') ?>
+    

@@ -1,0 +1,85 @@
+<meta charset="utf-8">
+<style>
+#mensconf{
+  
+   border-radius: 10px;
+    padding: 5px;
+}
+    
+</style>
+
+
+<?php if (!isset($this->resp)) { ?>
+    <a href="#destino" id="destino" rel="modal:open" >
+        <script type="text/javascript">
+            $(document).ready(function () {
+                 $('#mensconf').modal('show');
+
+            });
+
+        </script>  
+
+        <div class="modal" id="mensconf"  >
+
+
+
+
+            <table width="100%" heght="100%" align='center' cellspacing='5' cellpadding='5'>
+                <tr>
+                    <td   align='center' class="alert">
+
+
+                        <p align="center"> <font size="6"><i class="icon-exclamation-sign"></i></font><font size='3'> &nbsp;&nbsp;&nbsp;Você confirma a exclusão do aluno(a) <font size="3"><b>?</b><font><br></font><font size="2"><?php echo $this->name; ?></font>
+                        <p align="center">
+                            <font size='2'>Após a exclusão, não será mais possível acessar seus dados!</font>
+
+                        </p>
+
+
+                        <p>
+
+                            <input type="button" value="Sim" class='btn btn-danger' onclick="javascript:location = '/default/customer/deletar/id/<?php echo $this->id ?>/name/<?php echo $this->name ?>/excluir/excluir'"/> &nbsp; &nbsp;&nbsp;
+                            <input type="button" value="Não" class='btn btn-success'  onclick="javascript:location = '/default/customer/buscar'"/>
+                        </p>
+                    </td>
+
+                </tr>
+
+            </table>
+
+
+        </div>
+
+    <?php } ?>
+
+    <?php if (isset($this->resp)) { ?>
+        
+       
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#mensdel').modal('show');
+
+                });
+
+            </script>  
+            <div id="mensdel"class="modal" > 
+                <table width="100%" heght="100%"  align='center' cellspacing='5' cellpadding='5'>
+                    <tr>
+                        <td align='center' class="<?php echo $this->alerta ?>">
+                            <?php echo $this->titulo ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <font color="#003399"> <?php echo $this->resp ?> </font> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="javascript:location = '/default/customer/buscar'">OK</button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div> 
+        <?php }

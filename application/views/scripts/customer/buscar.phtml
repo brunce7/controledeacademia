@@ -1,0 +1,146 @@
+
+<meta charset="utf-8">
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('table tr#destaque').click(function () {
+            window.location = $(this).data('url');
+            returnfalse;
+        });
+
+    });
+
+
+</script>
+
+<style rel="stylesheet" type="text/css">
+
+    .formbusca { float: left;  }
+    .busca { margin-left: 0; margin-top: 60px;}
+    table#listar tr#destaque{
+        font-size: 13px; color: darklategray;
+    }
+    table#listar tr#destaque:nth-child(2n) {
+        background:#dff0d8;
+        margin-bottom: 5px;
+
+    }
+    .title_tabela {
+        background-color: white;
+
+    }
+    
+     
+</style>
+
+ 
+
+    
+<div  class="container">
+
+    <table  class="formbusca"> 
+        <?php if (!count($this->listaAlunos)) { ?>
+        <tr>
+            <td>
+                <legend><font  color="gray">Busca de Aluno</font></legend>
+
+                <a href="<?php echo $this->url(array('controller' => 'customer', 'action' => 'listar'), null, true) ?>">Listar Alunos</a>
+
+            </td>
+
+        </tr>
+
+
+        <td class="bs-docs">
+             <div align="center" class="<?php echo $this->alerta ?>">
+                    <?php echo $this->resp ?>
+
+                </div>
+             
+            <div>   
+                <?php echo $this->form ?>
+
+            </div>
+           
+        </td>
+
+         <?php }else { ?>
+              <tr>
+            <td>
+                <h4> <font color="gray">Lista de Alunos</font></h4>
+
+                  <a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index'), null, true) ?>">Voltar</a>
+
+
+            </td>
+
+        </tr>
+        <tr>
+
+            <td >
+                <div align="center" class="<?php echo $this->alerta ?>">
+                    <?php echo $this->resp ?>
+
+                </div>
+
+            </td>
+
+        </tr>
+       <?php } ?>
+    </table>   
+
+
+
+
+    <div class="busca"  >
+      
+        
+        <table id="listar" width="100%"   class="table-hover" cellpadding="2" cellspacing="2" border="0" align="center">
+
+
+
+            <?php if (count($this->listaAlunos)) { ?>
+
+
+                <tr class="title_tabela">
+                    <th align="center">MATRÍCULA</th>
+                    <th align="center">NOME</th>
+                    <th align="center">TELEFONE</th>
+                    <th align="center">CELULAR</th>
+                    <th align="center">EM ABERTO</th>
+                    <th align="center">DESCRIÇÃO</th>
+                    <th align="center">MENSALIDADE</th>
+                    <th align="center">STATUS</th>
+            
+                </tr>
+                <?php foreach ($this->listaAlunos as $alun) { ?>
+                    <tr id="destaque"  data-url="<?= $this->url(array("controller" => "customer", "action" => "edit", "id" => "{$alun['aluno']}"), null, true) ?>" style="cursor: pointer" title="Clique para editar o registro">
+                        <td align="center"><?php echo $alun["aluno"]; ?></td>
+                        <td align="center"><?php echo $alun["name"]; ?></td>
+                        <td align="center"><?php echo $alun["phone"]; ?></td>
+                        <td align="center"><?php echo $alun["cellphone"]; ?></td>
+                       <?php
+                        
+                        if ($alun['open']== "yes"){ 
+                            
+                            $open = "<font color='red'>Sim</font>";
+                        }else{
+                            $open = "<font color='darkgreen'>Não</font>";
+                        }  ?>
+                        <td align="center"><?php echo $open; ?></td>
+                        <td align="center"><?php echo $alun["description"]; ?></td>
+                 
+                        <td align="center"><?php echo number_format($alun['monthly_payment'], 2, ',', '.'); ?></td>
+                        <td align="center"><?php echo $alun["status"]; ?></td>
+                    </tr>      
+                <?php } ?>
+            <?php } ?>
+        </table>
+       
+    </div>
+</div>
+
+
+

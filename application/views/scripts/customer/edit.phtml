@@ -1,0 +1,250 @@
+<script language="javascript">
+var inputsCEP = $('#logradouro, #bairro, #localidade, #uf');
+var inputsRUA = $('#cep, #bairro');
+var validacep = /^[0-9]{8}$/;
+
+function limpa_formulário_cep(alerta) {
+  if (alerta !== undefined) {
+    alert(alerta);
+	    document.customer.cep.focus();
+	   mudarCorCampo( document.customer.cep,'#FFFBBF')
+	  
+  }
+
+  inputsCEP.val('');
+}
+
+function get(url) {
+
+  $.get(url, function(data) {
+
+    if (!("erro" in data)) {
+
+      if (Object.prototype.toString.call(data) === '[object Array]') {
+        var data = data[0];
+      }
+
+     $.each(data, function(nome, info) {
+       $('#' + nome).val(nome === 'cep' ? info : info).attr('info', nome === 'cep' ? info : info);
+    });
+          
+	mudarCorCampo( document.customer.cep,'#FFFFFF')
+         
+            
+    
+   
+
+
+         
+        
+
+    } else {
+      limpa_formulário_cep("CEP não encontrado.");
+	  document.customer.cep.focus();
+	   mudarCorCampo( document.customer.cep,'#FFFBBF')
+    }
+   
+  });
+}
+
+// Digitando RUA/CIDADE/UF
+$(document).ready(function(){
+$('#logradouro, #localidade, #uf').on('blur', function(e) {
+
+//  if ($('#logradouro').val() !== '' && $('#logradouro').val() !== $('#logradouro').attr('info') && $('#localidade').val() !== '' && $('#localidade').val() !== $('#localidade').attr('info') && $('#uf').val() !== '' && $('#uf').val() !== $('#uf').attr('info')) {
+
+    inputsRUA.val('...');
+    get('https://viacep.com.br/ws/' + $('#uf').val() + '/' + $('#localidade').val() + '/' + $('#logradouro').val() + '/json/');
+ // }
+
+});
+});
+// Digitando CEP
+$(document).ready(function(){
+$('#cep').on('blur', function(e) {
+
+  var cep = $('#cep').val().replace(/\D/g, '');
+
+  if (cep !== "" && validacep.test(cep)) {
+
+    inputsCEP.val('...');
+    get('https://viacep.com.br/ws/' + cep + '/json/');
+     
+  } else {
+    limpa_formulário_cep(cep == "" ? undefined : "Formato de CEP inválido.");
+  }
+});
+});
+</script>
+<meta charset="utf-8">
+
+    <script language="javascript">
+	// <![CDATA[
+    //-----------------------------------------------------
+    //Funcao: MascaraMoeda
+    //Sinopse: Mascara de preenchimento de moeda
+    //Parametro:
+    //   objTextBox : Objeto (TextBox)
+    //   SeparadorMilesimo : Caracter separador de milésimos
+    //   SeparadorDecimal : Caracter separador de decimais
+    //   e : Evento
+    //Retorno: Booleano
+    //Autor: Gabriel Fróes - www.codigofonte.com.br
+    //-----------------------------------------------------
+  function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e){
+    var sep = 0;
+    var key = '';
+    var i = j = 0;
+    var len = len2 = 0;
+    var strCheck = '0123456789';
+    var aux = aux2 = '';
+    var whichCode = (window.Event) ? e.which : e.keyCode;
+    if ((whichCode == 13) || (whichCode == 0) || (whichCode == 8)) return true;
+    key = String.fromCharCode(whichCode); // Valor para o código da Chave
+    if (strCheck.indexOf(key) == -1) return false; // Chave inválida
+    len = objTextBox.value.length;
+    for(i = 0; i < len; i++)
+    if ((objTextBox.value.charAt(i) != '0') && (objTextBox.value.charAt(i) != SeparadorDecimal)) break;
+    aux = '';
+    for(; i < len; i++)
+        if (strCheck.indexOf(objTextBox.value.charAt(i))!=-1) aux += objTextBox.value.charAt(i);
+    aux += key;
+    len = aux.length;
+    if (len == 0) objTextBox.value = '';
+    if (len == 1) objTextBox.value = '0'+ SeparadorDecimal + '0' + aux;
+    if (len == 2) objTextBox.value = '0'+ SeparadorDecimal + aux;
+    if (len > 2) {
+        aux2 = '';
+        for (j = 0, i = len - 3; i >= 0; i--) {
+            if (j == 3) {
+                aux2 += SeparadorMilesimo;
+                j = 0;
+            }
+            aux2 += aux.charAt(i);
+            j++;
+        }
+        objTextBox.value = '';
+        len2 = aux2.length;
+        for (i = len2 - 1; i >= 0; i--)
+        objTextBox.value += aux2.charAt(i);
+        objTextBox.value += SeparadorDecimal + aux.substr(len - 2, len);
+    }
+    return false;
+}
+    // ]]>
+	
+	
+
+
+  
+
+
+    </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input[name='cpf']").blur(function (e) {
+
+            $.getJSON(
+                    '/php/function.php',
+                    {cpf: $(this).val()},
+                    function (json)
+                    {
+                        $('form').loadData(json);
+                    }
+            );
+        });
+
+        $("input[name='name']").blur(function (e) {
+
+
+            //  var $gender = $("input[id='gender']");
+
+            //$("input[name='name']").bind('blur', function(e){
+            e.preventDefault();
+
+            //  var $cpf = $("input[name='cpf']");
+            //  var $name = $("input[name='name']");
+            //  var $id = $("input[name='id']");
+            // var $register = $("input[name='register']");
+
+
+            /*
+             var $gender = $("input[name='gender']");
+             
+             var $name = $("input[name='name']");
+             var $street = $("input[name='street']");
+             var $house_number = $("input[name='house_number']");
+             var $neighborhood = $("input[name='neighborhood']");
+             var $city = $("input[name='city']");
+             var $phone = $("input[name='phone']");
+             var $cellphone = $("input[name='cellphone']");
+             var $gender =  $('input[id=sexo]').radioSel();
+             
+             
+             
+             $register.val('Carregando...');
+             // $cpf.val('Carregando...');
+             
+             //$name.val('Carregando...');
+             //
+             $id.val('Carregando...');
+             // $gender.val('Carregando...');
+             */
+
+            $.getJSON(
+                    '/php/function.php',
+                    {name: $(this).val()},
+                    function (json)
+                    {
+                        $('form').loadData(json);
+                        //   $id.val(json.id);
+                        //   $register.val(json.register);
+                        //   $name.val(json.name);
+                        //   $cpf.val(json.cpf);
+                        //   $gender.val(json.gender);
+
+
+                        //$('input[id=sexo]').radioSel('');
+
+                    }
+            );
+        });
+    });
+</script>
+
+<div class="container">
+    <table> <td> <legend><font color="gray">Atualizar Cadastro de Aluno</font> </legend> </td></table>
+    <a href="<?php
+    echo $this->url(array('controller' => 'customer',
+        'action' => 'buscar'));
+    ?>">Voltar</a>
+
+    
+
+        <table class="bs-docs"> 
+            <tr>
+                <td>
+                    <?php if (isset($this->message)) : ?>
+                        <div class="notification">
+
+                            <?php echo $this->message; ?>
+
+                        </div>    
+                    <?php endif; ?>
+                    <?php echo $this->form ?>   
+                    <?php echo $this->resp1 ?>
+
+
+
+                </td>
+            </tr>
+
+        </table>
+    
+</div>
+<?php echo $this->resp1 ?>
+<div id="dialog" title="<?php echo $this->titulo ?>" class="<?php echo $this->alerta ?>"> 
+    <?php echo $this->resp ?>  
+   
+</div>
+

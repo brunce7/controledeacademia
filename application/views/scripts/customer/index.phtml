@@ -1,0 +1,22 @@
+<a href="<?=$this->url(array("controller"=>"customer","action"=>"create"),null,true)?>">Novo Aluno</a>
+<table width="100%" cellpadding="3" cellspacing="0" border="1">
+   <tr>
+      <th>Nome</th>
+      <th>Telefone Celular</th>
+      <th>email</th>
+      <th>cpf</th>
+   </tr>
+   <?php foreach($this->dados AS $key => $alunos): ?>
+   <tr>
+      <td><?= $alunos->name ?></td>
+      <td><?= $alunos->cellphone?></td>
+      <td><?= $alunos->email ?></td>
+      <td><?= $alunos->cpf  ?></td>
+      <td width='150'>
+         <a href="<?= $this->url(array("controller"=>"customer","action"=>"buscar","id"=>"{$alunos['id']}"),null,true)?>">Buscar</a>
+         <a href="<?= $this->url(array("controller"=>"customer","action"=>"edit","id"=>"{$alunos['id']}"),null,true)?>">Editar</a>
+         <a href="<?= $this->url(array("controller"=>"customer","action"=>"listar","id"=>"{$alunos['id']}"),null,true)?>">Listar</a>
+      </td>
+   </tr>
+   <?php endforeach;?>
+</table>

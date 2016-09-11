@@ -1,0 +1,119 @@
+<meta charset="utf-8">
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('table tr#destaque').click(function () {
+            window.location = $(this).data('url');
+            returnfalse;
+        });
+
+    });
+
+
+
+</script>
+
+
+
+<style rel="stylesheet" type="text/css">
+
+    .formbusca { float: left;  }
+    .busca { margin-left: 0; margin-top: 60px; }
+    table#listar tr#destaque{
+        font-size: 13px; color: darklategray;
+    }
+    table#listar tr#destaque:nth-child(2n) {
+        background:#deedf9;
+
+    }
+   
+    .title_tabela {
+        background-color: white;
+
+    }
+
+ 
+
+</style>
+<div  class="container">
+
+
+    <table class="formbusca"> 
+
+        <tr>
+            <td>
+               <legend> <font color="gray">Lista de Pagamentos</font></legend>
+
+                <a href="<?php
+                echo $this->url(array('controller' => 'customer',
+                    'action' => 'payment'));
+                ?>">Voltar</a>
+
+            </td>
+
+        </tr>
+        <tr>
+
+            <td>
+                <div align="center" class="<?php echo $this->alerta ?>">
+                    <?php echo $this->resp ?>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    </table>   
+
+
+
+
+    <div class="busca" >
+        <table id="listar" width="100%" height="100%" class="table-hover" cellpadding="3" cellspacing="3" border="0" align="center">
+
+
+
+            <?php if (count($this->listaAlunos)) { ?>
+
+
+                <tr class="title_tabela">
+                    <th align="center">Pagto Nº</th> 
+                    <th align="center">Matrícula</th>
+                    <th align="center">Nome do aluno</th>
+                    <th align="center">Celular</th>
+                    <th align="center">Data/Hora do Pagamento</th>
+                    <th align="center">Valor</th>
+                    <th align="center">Em aberto</th>
+                    <th align="center">Descrição</th>
+
+
+
+                </tr>
+
+                <?php foreach ($this->listaAlunos as $alun) { ?>
+                    <tr id="destaque"  data-url="<?= $this->url(array("controller" => "payment", "action" => "edit", "id" => "{$alun['aluno']}", "name" => "{$alun['name']}"), null, true) ?>" style="cursor:pointer" title="Clique para editar o registro">
+                        <td align="center"><?php echo $alun['aluno']; ?></td>
+                        <td align="center"><?php echo $alun['customer']; ?></td>
+                        <td align="center"><?php echo $alun['name']; ?></td>
+                        <td align="center"><?php echo $alun['cellphone']; ?></td>
+                        <td align="center"><?php echo date('d/m/Y H:i:s', strtotime($alun['date']));?></td>
+                        <td align="center"><?php echo "R$ " . number_format($alun['value'], 2, ',', '.'); ?></td>
+                        <?php
+                        
+                        if ($alun['open']== "yes"){ 
+                            
+                            $open = "<font color='red'>Sim</font>";
+                        }else{
+                            $open = "<font color='darkgreen'>Não</font>";
+                        }  ?>
+                        <td align="center"><?php echo $open; ?></td>
+                        <td align="center"><?php echo $alun['description']; ?></td>
+
+
+                    </tr> 
+
+                <?php } ?>
+            <?php } ?>
+        </table>
+    </div>
+</div>

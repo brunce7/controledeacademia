@@ -1,7 +1,7 @@
 Controle de Academia
 ==================
 
-Da série de vídeos tutoriais do Zend Framework 1 do canal [WFCreations](http://www.youtube.com/user/wfcreations).
+Aproveitamento do Layout do Projeto  [WFCreations](http://www.youtube.com/user/wfcreations).
 
 Lista de Reprodução: [Zend Framework 1][Playlist]
 
